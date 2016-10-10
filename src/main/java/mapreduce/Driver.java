@@ -6,7 +6,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
@@ -18,6 +18,7 @@ public class Driver extends Configured implements Tool {
     public int run(String[] args) throws Exception {
 
         Configuration conf = getConf();
+        conf.set("mapreduce.input.keyvaluelinerecordreader.key.value.separator", ";");
         Job job = Job.getInstance(conf);
         job.setJobName("Driver");
         job.setJarByClass(Driver.class);
@@ -37,11 +38,13 @@ public class Driver extends Configured implements Tool {
         job.setMapperClass(Map.class);
         job.setReducerClass(Reduce.class);
 
-        job.setInputFormatClass(TextInputFormat.class);
+        job.setInputFormatClass(KeyValueTextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
 
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(Text.class);    
+        job.setOutputValueClass(Text.class);  
+        
+        
         job.waitForCompletion(true);
 
         return 0;
