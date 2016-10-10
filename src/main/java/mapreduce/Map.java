@@ -17,25 +17,21 @@ public class Map extends Mapper<LongWritable, Text, Text, Text> {
         String line = value.toString();
         StringTokenizer itr = new StringTokenizer(line,"\n");
         StringTokenizer itrInside;
+        
+        while (itr.hasMoreTokens()) 
+        	{
+        		if(itr.countTokens() > 2){
+        	}
+        	else{
+        			itrInside=new StringTokenizer(itr.toString());
+        			vertexID.set(itr.nextToken());
 
-
-
-        while (itr.hasMoreTokens()) {
-            if(itr.countTokens() > 2){
-
-            }//ignore first line ??
-            else{
-                itrInside=new StringTokenizer(itr.toString());
-                vertexID.set(itr.nextToken());
-
-                while(itrInside.hasMoreTokens()){               
-                    vertice.set(itrInside.nextToken());
-                    context.write(vertexID, value);
-                }           
-            }
-        }
-
+        			while(itrInside.hasMoreTokens())
+        				{               
+        					vertice.set(itrInside.nextToken());
+        					context.write(vertexID, value);
+        				}           
+            	}
+        	}
     }
-
 }
-
