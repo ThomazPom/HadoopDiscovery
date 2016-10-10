@@ -3,11 +3,12 @@ package mapreduce;
 import java.io.IOException;
 
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Mapper.Context;
+import org.apache.hadoop.mapreduce.Reducer;
 
-public class Reduce{
+@SuppressWarnings("rawtypes")
+public class Reduce extends Reducer{
     @SuppressWarnings("unchecked")
-	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+	public void reduce(Text key, Iterable<Text> values, Context context) {
 
         String vertices="";
 
@@ -20,9 +21,15 @@ public class Reduce{
 
         Text value=new Text();
         value.set(vertices);
-        context.write(key, value);
-
+        try {
+			context.write(key, value);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
-
 }
 

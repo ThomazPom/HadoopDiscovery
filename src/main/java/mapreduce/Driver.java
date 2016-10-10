@@ -6,7 +6,9 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
@@ -15,11 +17,9 @@ public class Driver extends Configured implements Tool {
 
     public int run(String[] args) throws Exception {
 
-
-
         Configuration conf = getConf();
         Job job = Job.getInstance(conf);
-        job.setJobName("Test driver");
+        job.setJobName("Driver");
         job.setJarByClass(Driver.class);
 
         String[] arg0 = new GenericOptionsParser(conf, args).getRemainingArgs();
