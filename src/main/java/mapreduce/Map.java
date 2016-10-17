@@ -24,7 +24,7 @@ public class Map extends Mapper<Text, Text, Text, Text> {
     		for (String idchild : childnodes) {
     		
     			
-    			context.write(new Text(idchild), new Text("\t|GRIS|"+(myprofondeur+1)));
+    			context.write(new Text(idchild), new Text("|GRIS|"+(myprofondeur+1)));
     		}
     		
     		context.write(key, new Text( value.toString().replace("GRIS", "NOIR")));
